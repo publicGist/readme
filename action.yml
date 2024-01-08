@@ -1,0 +1,37 @@
+name: "Readme Languages Display"
+author: "Gekko Wrld"
+description: "Show off your languages statistics in your profile"
+
+inputs:
+	AUTH_TOKEN:
+		description: "Github access token"
+		default: ${{ github.token }}
+		required: false
+	
+	COMMIT_MSG:
+		description: "Commit Message"
+		default: "Add a commit"
+		required: false
+	
+	GIT_REPO:
+		description: "The repository that this action is running on"
+		default: ${{ github.action_repository }}
+		required: false
+	
+	START_AT:
+		description: "Start of where the action will change"
+		default: "<!--START_SECTION:readme-->"
+		required: false
+	
+	END_AT:
+		description: "End of where the action will change"
+		default: "<!--END_SECTION:readme-->"
+		required: false
+
+runs:
+	using: "docker"
+	image: "Dockerfile"
+
+branding:
+	icon: "info"
+	color: "blue"
