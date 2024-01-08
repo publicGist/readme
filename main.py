@@ -20,6 +20,11 @@ END_AT = getenv("END_AT")
 
 
 def get_default_branch(f_repo):
+    """
+
+    :param f_repo:
+
+    """
     api_url = f"https://api.github.com/repos/{f_repo}"
 
     response = get(api_url, headers=headers)
@@ -32,12 +37,26 @@ def get_default_branch(f_repo):
 
 
 def calculate_language_size(f_repo):
+    """
+
+    :param f_repo:
+
+    """
     for repo in g.get_user().get_repos():
         data = f"https://api.github.com/repos/{repo}/languages"
         return data
 
 
 def push_to_repo(f_path, f_repo, d_branch, c_msg, content):
+    """
+
+    :param f_path:
+    :param f_repo:
+    :param d_branch:
+    :param c_msg:
+    :param content:
+
+    """
     try:
         repo = g.get_repo(f_repo)
         contents = repo.get_contents(f_path, ref=d_branch)
@@ -50,7 +69,9 @@ def push_to_repo(f_path, f_repo, d_branch, c_msg, content):
             content=content,
         )
 
-        print(f"Successfully pushed to {d_branch} branch in {f_repo} repository.")
+        print(
+            f"Successfully pushed to {d_branch} branch in {f_repo} repository."
+        )
     except Exception as e:
         print(f"Error: {e}")
 
@@ -59,6 +80,8 @@ if __name__ == "__main__":
     repo = g.get_repo(git_repo)
     f_path = repo.get_readme()
     d_branch = get_default_branch(git_repo)
+
+    # Since most branches moved to "main" then use it incase
     if d_branch is None:
         d_branch = "main"
     c_msg = commit_msg
